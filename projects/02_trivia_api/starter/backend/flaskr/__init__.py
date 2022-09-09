@@ -60,6 +60,23 @@ def create_app(test_config=None):
   Clicking on the page numbers should update the questions. 
   '''
 
+    @app.route('/questions')
+    # @cross_origin()
+    def get_questions():
+        # Used for pagination
+        page = request.args.get('page', 1, type=int)
+        start = (page - 1) * 10
+        end = start + 10
+
+        questions = Question.query.all()
+        formatted_questions = [question.format() for question in questions]
+
+        return jsonify({
+            'success': True,
+            "questions": formatted_questions[start:end],
+            'total_questions': len(formatted_questions)
+        })
+
   '''
   @TODO: 
   Create an endpoint to DELETE question using a question ID. 
