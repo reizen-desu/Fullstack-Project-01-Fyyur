@@ -79,18 +79,25 @@ def create_app(test_config=None):
     # @cross_origin()
     def get_questions():
 
-        # Used for pagination
+        # Used for pagination | get all questions and paginate
         selection = Question.query.order_by(Question.id).all()
         questions_paginated = paginate_questions(request, selection)
 
+        # If no questions are returned then abort
         if len(questions_paginated) == 0:
-            abort(400)
+            abort(404)
+
+        # Add categories data to dict
+        categories = Category.query.order_by(Category.id).all()
+        categories_dict = {}
+        for category in categories:
+            categories_dict[category.id] = category.type
 
         return jsonify({
             'success': True,
             'questions': questions_paginated,
             'total_questions': len(selection),
-
+            'categories': categories_dict
         })
 
     '''
