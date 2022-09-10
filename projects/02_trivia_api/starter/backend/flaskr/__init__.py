@@ -46,7 +46,7 @@ def create_app(test_config=None):
         return response
 
     '''
-  @TODO:
+  # ! DONE :
   Create an endpoint to handle GET requests
   for all available categories.
   '''
@@ -64,7 +64,7 @@ def create_app(test_config=None):
         })
 
     '''
-  @TODO:
+  # ! DONE:
   Create an endpoint to handle GET requests for questions,
   including pagination (every 10 questions).
   This endpoint should return a list of questions,
