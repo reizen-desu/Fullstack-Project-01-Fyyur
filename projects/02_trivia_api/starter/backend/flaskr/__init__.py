@@ -9,44 +9,58 @@ from models import setup_db, Question, Category
 QUESTIONS_PER_PAGE = 10
 
 
+# Functions
+
+def paginate_questions(request, selection):
+    current_questions = []
+
+    page = request.args.get('page', 1, type=int)
+    start = (page-1) * QUESTIONS_PER_PAGE
+    end = start + QUESTIONS_PER_PAGE
+    questions = [question.format() for question in selection]
+    current_questions = questions[start:end]
+
+    return current_questions
+
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
 
     '''
-  @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
+  # ! DONE: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
-      cors = CORS(app, resources={r"*": {"origins": '*'}})
+    cors = CORS(app, resources={r"*": {"origins": '*'}})
 
     '''
   # ! DONE: Use the after_request decorator to set Access-Control-Allow
   '''
 
-      @app.after_request
-       def after_request(response):
-            response.headers.add("Access-Control-Allow-Headers",
-                                 "Content-Type, Authorization")
-            response.headers.add(
-                "Access-Control-Allow-Headers", "GET, POST, DELETE")
-            return response
+    @app.after_request
+    def after_request(response):
+        response.headers.add("Access-Control-Allow-Headers",
+                             "Content-Type, Authorization")
+        response.headers.add(
+            "Access-Control-Allow-Headers", "GET, POST, DELETE")
+        return response
 
     '''
   @TODO:
   Create an endpoint to handle GET requests
   for all available categories.
   '''
-      @app.route('/categories')
-       # @cross_origin()
-       def get_categories():
-            categories = Category.query.all()
-            formatted_categories = [category.format()
-                                    for category in categories]
+    @app.route('/categories')
+    # @cross_origin()
+    def get_categories():
+        categories = Category.query.all()
+        formatted_categories = [category.format()
+                                for category in categories]
 
-            return jsonify({
-                'success': True,
-                "categories": formatted_categories
-            })
+        return jsonify({
+            'success': True,
+            "categories": formatted_categories
+        })
 
     '''
   @TODO:
@@ -61,22 +75,23 @@ def create_app(test_config=None):
   Clicking on the page numbers should update the questions.
   '''
 
-      @app.route('/questions')
-       # @cross_origin()
-       def get_questions():
-            # Used for pagination
-            page = request.args.get('page', 1, type=int)
-            start = (page - 1) * 10
-            end = start + 10
+    @app.route('/questions')
+    # @cross_origin()
+    def get_questions():
 
-            questions = Question.query.all()
-            formatted_questions = [question.format() for question in questions]
+        # Used for pagination
+        selection = Question.query.order_by(Question.id).all()
+        questions_paginated = paginate_questions(request, selection)
 
-            return jsonify({
-                'success': True,
-                "questions": formatted_questions[start:end],
-                'total_questions': len(formatted_questions)
-            })
+        if len(questions_paginated) == 0:
+            abort(400)
+
+        return jsonify({
+            'success': True,
+            'questions': questions_paginated,
+            'total_questions': len(selection),
+
+        })
 
     '''
   @TODO:
@@ -134,28 +149,28 @@ def create_app(test_config=None):
   Create error handlers for all expected errors
   including 404 and 422.
   '''
-      @app.errorhandler(404)
-       def page_not_found(error):
-            return jsonify({
-                "success": False,
-                'error': 404,
-                "message": "Page Not Found"
-            }), 404
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return jsonify({
+            "success": False,
+            'error': 404,
+            "message": "Page Not Found"
+        }), 404
 
-        @app.errorhandler(422)
-        def unprocessable_recource(error):
-            return jsonify({
-                "success": False,
-                'error': 422,
-                "message": "Unprocessable recource"
-            }), 422
+    @app.errorhandler(422)
+    def unprocessable_recource(error):
+        return jsonify({
+            "success": False,
+            'error': 422,
+            "message": "Unprocessable recource"
+        }), 422
 
-        @app.errorhandler(500)
-        def internal_server_error(error):
-            return jsonify({
-                "success": False,
-                'error': 500,
-                "message": "Internal server error"
-            }), 500
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return jsonify({
+            "success": False,
+            'error': 500,
+            "message": "Internal server error"
+        }), 500
 
     return app
