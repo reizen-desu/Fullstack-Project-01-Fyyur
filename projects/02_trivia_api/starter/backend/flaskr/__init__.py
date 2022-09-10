@@ -51,15 +51,16 @@ def create_app(test_config=None):
   for all available categories.
   '''
     @app.route('/categories')
-    # @cross_origin()
     def get_categories():
-        categories = Category.query.all()
-        formatted_categories = [category.format()
-                                for category in categories]
+
+        categories = Category.query.order_by(Category.id).all()
+        categories_dict = {}
+        for category in categories:
+            categories_dict[category.id] = category.type
 
         return jsonify({
             'success': True,
-            "categories": formatted_categories
+            'categories': categories_dict
         })
 
     '''
