@@ -157,6 +157,12 @@ def create_app(test_config=None):
   Try using the word "title" to start.
   '''
 
+    @app.route('/questions/search', methods=['POST'])
+    def search_questions():
+        return jsonify({
+            'success': True
+        })
+
     '''
   @TODO:
   Create a GET endpoint to get questions based on category.
@@ -165,6 +171,13 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that
   category to be shown.
   '''
+
+    @app.route('/categories/<int:category_id>/questions')
+    def get_questions_by_category(category_id):
+
+        return jsonify({
+            'success': True,
+        })
 
     '''
   @TODO:
@@ -177,6 +190,12 @@ def create_app(test_config=None):
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not.
   '''
+
+    @app.route('/quizzes', methods=['POST'])
+    def get_questions_for_quiz():
+        return jsonify({
+            'success': True,
+        })
 
     '''
   #  !DONE:
@@ -192,7 +211,7 @@ def create_app(test_config=None):
         }), 404
 
     @app.errorhandler(422)
-    def unprocessable_recource(error):
+    def unprocessable_resource(error):
         return jsonify({
             "success": False,
             'error': 422,
