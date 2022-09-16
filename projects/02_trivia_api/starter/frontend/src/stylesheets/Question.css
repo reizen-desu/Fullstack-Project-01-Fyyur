@@ -56,10 +56,15 @@
 span.page-num {
   margin: 5px;
   padding-bottom: 50px;
-  /* color: blue; */
+  color: gray;
   font-weight: bolder;
   text-decoration: underline;
   font-size: 16px;
+  cursor: pointer;
+}
+
+span.page-num:hover {
+  color: green;
 }
 
 span.page-num.active {
