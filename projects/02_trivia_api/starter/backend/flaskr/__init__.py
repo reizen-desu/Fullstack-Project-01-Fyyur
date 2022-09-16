@@ -134,6 +134,18 @@ def create_app(test_config=None):
     def post_question():
         body = request.get_json()
 
+        new_question = body.get('question')
+        new_answer = body.get('answer')
+        new_difficulty = body.get('difficulty')
+        new_category = body.get('category')
+
+        question = Question(question=new_question, answer=new_answer,
+                            difficulty=new_difficulty, category=new_category)
+        question.insert()
+
+        return jsonify({
+            'success': True
+        })
     '''
   @TODO:
   Create a POST endpoint to get questions based on a search term.
