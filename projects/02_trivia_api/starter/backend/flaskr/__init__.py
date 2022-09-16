@@ -84,7 +84,7 @@ def create_app(test_config=None):
         selection = Question.query.order_by(Question.id).all()
         questions_paginated = paginate_questions(request, selection)
 
-        # If no questions are returned then abort
+        # If no questions are returned then return not found
         if len(questions_paginated) == 0:
             abort(404)
 
@@ -111,13 +111,13 @@ def create_app(test_config=None):
     @app.route('/questions/<int:question_id>', methods=['DELETE'])
     def delete_question(question_id):
         try:
-        question = Question.query.get(question_id)
-        question.delete()
+            question = Question.query.get(question_id)
+            question.delete()
 
-        return jsonify({
-            'success': True,
-            'deleted': question_id
-        })
+            return jsonify({
+                'success': True,
+                'deleted': question_id
+            })
         except:
             abort(422)
     '''
@@ -215,7 +215,7 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             'error': 422,
-            "message": "Unprocessable recource"
+            "message": "Unprocessable resource"
         }), 422
 
     @app.errorhandler(500)
