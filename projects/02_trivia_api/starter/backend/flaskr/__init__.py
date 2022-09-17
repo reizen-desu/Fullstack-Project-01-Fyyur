@@ -178,7 +178,7 @@ def create_app(test_config=None):
             })
         abort(404)
     '''
-  @TODO:
+  #   ! DONE:
   Create a GET endpoint to get questions based on category.
 
   TEST: In the "List" tab / main screen, clicking on one of the
@@ -189,8 +189,17 @@ def create_app(test_config=None):
     @app.route('/categories/<int:category_id>/questions')
     def get_questions_by_category(category_id):
 
+        category = Category.query.get(category_id)
+        selection = Question.query.order_by(Question.id).filter(
+            Question.category == category_id).all()
+        current_questions = paginate_questions(request, selection)
+
         return jsonify({
             'success': True,
+            'questions': current_questions,
+            'total_questions': len(current_questions),
+            'current_category': category_id
+
         })
 
     '''
