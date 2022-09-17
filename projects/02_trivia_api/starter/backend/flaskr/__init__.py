@@ -139,13 +139,17 @@ def create_app(test_config=None):
         new_difficulty = body.get('difficulty')
         new_category = body.get('category')
 
-        question = Question(question=new_question, answer=new_answer,
-                            difficulty=new_difficulty, category=new_category)
-        question.insert()
+        try:
+            question = Question(question=new_question, answer=new_answer,
+                                difficulty=new_difficulty, category=new_category)
+            question.insert()
 
-        return jsonify({
-            'success': True
-        })
+            return jsonify({
+                'success': True
+            })
+        except:
+            abort(422)
+
     '''
   @TODO:
   Create a POST endpoint to get questions based on a search term.
