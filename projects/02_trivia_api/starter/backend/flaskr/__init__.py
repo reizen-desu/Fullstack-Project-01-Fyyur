@@ -121,7 +121,7 @@ def create_app(test_config=None):
         except:
             abort(422)
     '''
-  @TODO:
+  @DONE:
   Create an endpoint to POST a new question,
   which will require the question and answer text,
   category, and difficulty score.
@@ -151,7 +151,7 @@ def create_app(test_config=None):
             abort(422)
 
     '''
-  @TODO:
+  @DONE:
   Create a POST endpoint to get questions based on a search term.
   It should return any questions for whom the search term
   is a substring of the question.
@@ -203,7 +203,7 @@ def create_app(test_config=None):
         })
 
     '''
-  @TODO:
+  @DONE:
   Create a POST endpoint to get questions to play the quiz.
   This endpoint should take category and previous question parameters
   and return a random questions within the given category,
@@ -266,25 +266,25 @@ def create_app(test_config=None):
     @app.errorhandler(404)
     def page_not_found(error):
         return jsonify({
-            "success": False,
+            'success': False,
             'error': 404,
-            "message": "Page Not Found"
+            'message': "Page Not Found"
         }), 404
 
     @app.errorhandler(422)
     def unprocessable_resource(error):
         return jsonify({
-            "success": False,
+            'success': False,
             'error': 422,
-            "message": "Unprocessable resource"
+            'message': "Unprocessable resource"
         }), 422
 
     @app.errorhandler(500)
     def internal_server_error(error):
         return jsonify({
-            "success": False,
+            'success': False,
             'error': 500,
-            "message": "Internal server error"
+            'message': "Internal server error"
         }), 500
 
     return app
