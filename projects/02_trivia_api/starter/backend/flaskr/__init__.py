@@ -6,10 +6,17 @@ import random
 
 from models import setup_db, Question, Category
 
-QUESTIONS_PER_PAGE = 10
-
 
 # Functions
+
+"""Paginate function
+Used to paginate questions. Used to handle display of
+questions per page. QUESTIONS_PER_PAGE defines the
+number of questions shown per page.
+"""
+
+QUESTIONS_PER_PAGE = 10
+
 
 def paginate_questions(request, selection):
     current_questions = []
