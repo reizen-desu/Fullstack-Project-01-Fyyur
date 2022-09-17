@@ -35,13 +35,18 @@ From within the `./src` directory first ensure you are working using your create
 To run the server, execute:
 
 ```bash
-flask run --reload
+export FLASK_APP=flaskr
+export FLASK_ENV=development
+flask run
 ```
 
-The `--reload` flag will detect file changes and restart the server automatically.
+> :warning: For **Windows** we use `set` instead of `export`
 
-## ToDo Tasks
-These are the files you'd want to edit in the backend:
+By setting our environment with the "development" flagm flask will detect file changes and restart the server automatically.
+
+
+## environments
+These are the files you'd want to check in the backend:
 
 1. *./backend/flaskr/`__init__.py`*
 2. *./backend/test_flaskr.py*
@@ -100,6 +105,37 @@ GET '/api/v1.0/categories'
 
 ```
 
+## API Reference
+
+### Introduction
+
+- No authentication is required for this API.
+
+### Error Handling
+
+Errors are returned as JSON objects.
+
+```
+{
+    "success": False,
+    "error": <Error code>,
+    "message": <Message>
+}
+```
+
+| Error code | Message |
+| --- | --- |
+| 400 | Bad Request |
+| 404 | Not Found |
+| 422 | Unprocessable |
+| 500 |  Internal Server Error|
+
+
+### Endpoints
+
+#### `GET /`
+
+
 
 ## Testing
 To run the tests, run
@@ -109,3 +145,4 @@ createdb trivia_test
 psql trivia_test < trivia.psql
 python test_flaskr.py
 ```
+
