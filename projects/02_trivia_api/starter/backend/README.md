@@ -208,6 +208,45 @@ Errors are returned as JSON objects.
 {
     "success": true
 }
+```
+
+#### `POST /questions/search`
+- Searches for questions using the search term
+- Returns matching results in JSON objects
+
+
+##### Example Response
+```JSON
+ {
+      "success": true,
+      "questions": [
+          {
+              "answer": "Brazil", 
+              "category": 6, 
+              "difficulty": 3, 
+              "id": 10, 
+              "question": "Which is the only team to play in every soccer World Cup tournament?"
+          }, 
+          {
+              "answer": "Uruguay", 
+              "category": 6, 
+              "difficulty": 4, 
+              "id": 11, 
+              "question": "Which country won the first ever soccer World Cup in 1930?"
+          }, 
+          {
+              "answer": "The Palace of Versailles", 
+              "category": 3, 
+              "difficulty": 3, 
+              "id": 14, 
+              "question": "In which royal palace would you find the Hall of Mirrors?"
+          }
+      ], 
+      "total_questions": 17,
+  }
+```
+
+
 
 
 
