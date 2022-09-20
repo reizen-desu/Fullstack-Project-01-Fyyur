@@ -51,6 +51,13 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
 
     def test_404_sent_requesting_beyond_valid_page(self):
+        res = self.client().get('/questions?page=1000')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['message'], 'Resource not found')
+        self.assertEqual(data['success'], False)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
