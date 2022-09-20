@@ -188,7 +188,7 @@ Errors are returned as JSON objects.
 ```
 
 #### `POST /questions/search`
-- Searches for questions using the search term
+- Searches for questions using the search term (`searchTerm`)
 - Returns matching results in JSON objects
 
 
