@@ -52,8 +52,12 @@ def create_app(test_config=None):
 
         categories = Category.query.order_by(Category.id).all()
         categories_dict = {}
+
         for category in categories:
             categories_dict[category.id] = category.type
+
+        if len(categories_dict == 0):
+            abort(404)
 
         return jsonify({
             'success': True,
