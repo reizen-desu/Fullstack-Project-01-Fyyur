@@ -198,6 +198,16 @@ Errors are returned as JSON objects.
 }
 ```
 
+#### `POST /questions`
+- Creates a new question
+- Request Arguments: question_id
+
+
+##### Example Response
+```JSON
+{
+    "success": true
+}
 
 
 
