@@ -207,7 +207,7 @@ def create_app(test_config=None):
             'success': False,
             'error': 400,
             'message': 'Bad request'
-        })
+        }), 400
 
     @app.errorhandler(404)
     def page_not_found(error):
