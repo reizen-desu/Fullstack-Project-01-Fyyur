@@ -247,6 +247,18 @@ Errors are returned as JSON objects.
 ```
 
 
+#### `DELETE /questions/<question_id>`
+- Deletes a specific question based on a given id
+- Request Arguments: question_id:int
+
+
+##### Example Response
+```JSON
+{
+    "success": true,
+    "deleted": 9
+}
+```
 
 
 
