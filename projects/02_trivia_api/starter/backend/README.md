@@ -261,7 +261,44 @@ Errors are returned as JSON objects.
 ```
 
 
+#### `GET /categories/<category_id>/questions`
 
+- Fetches all questions from a specific category.
+- Request Arguments: category_id:int
+
+
+
+##### Example Response
+```JSON
+{
+    "current_category": 1,
+    "questions": [
+        {
+            "answer": "The Liver",
+            "category": 1,
+            "difficulty": 4,
+            "id": 20,
+            "question": "What is the heaviest organ in the human body?"
+        },
+        {
+            "answer": "Alexander Fleming",
+            "category": 1,
+            "difficulty": 3,
+            "id": 21,
+            "question": "Who discovered penicillin?"
+        },
+        {
+            "answer": "Blood",
+            "category": 1,
+            "difficulty": 4,
+            "id": 22,
+            "question": "Hematology is a branch of medicine involving the study of what?"
+        }
+    ],
+    "success": true,
+    "total_questions": 3
+}
+```
 
 ## Testing
 To run the tests, run
