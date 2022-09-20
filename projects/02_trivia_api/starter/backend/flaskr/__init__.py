@@ -117,6 +117,10 @@ def create_app(test_config=None):
         new_difficulty = body.get('difficulty')
         new_category = body.get('category')
 
+        # Check if any of fields are empty
+        if (len(new_question) == 0 or len(new_answer) == 0) or not (new_difficulty or new_category):
+            abort(422)
+
         try:
             question = Question(question=new_question, answer=new_answer,
                                 difficulty=new_difficulty, category=new_category)
