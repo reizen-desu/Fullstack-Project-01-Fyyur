@@ -1,6 +1,8 @@
 .vscode
 __pycache__
-venv
+
+# Environments
+venv/
 
 # OS generated files #
 ######################
@@ -12,4 +14,5 @@ venv
 ehthumbs.db
 Thumbs.db
 
+# Frontend folder
 **/node_modules
