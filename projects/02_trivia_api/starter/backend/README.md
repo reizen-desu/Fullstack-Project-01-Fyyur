@@ -300,6 +300,29 @@ Errors are returned as JSON objects.
 }
 ```
 
+#### `POST /quizzes`
+
+- Takes a list of previous questions (`previous_questions`) and quiz categories (`quiz_category`) and returns a random question belonging to the selected category, the questions are not repeated.
+- Request arguments: none
+
+
+##### Example Response
+```JSON
+{
+  "question": {
+    "answer": "Escher",
+    "category": 2,
+    "difficulty": 1,
+    "id": 16,
+    "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+  },
+  "success": true,
+  "total_questions": 4
+}
+
+```
+
+
 ## Testing
 To run the tests, run
 ```
