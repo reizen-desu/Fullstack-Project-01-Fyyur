@@ -13,3 +13,4 @@ ehthumbs.db
 Thumbs.db
 
 .github/**
+projects/02_trivia_api/starter/backend/.env
