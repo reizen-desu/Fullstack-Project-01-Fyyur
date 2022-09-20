@@ -156,6 +156,47 @@ Errors are returned as JSON objects.
 
 #### `GET /questions`
 
+- Fetches a dictionary of categories, a list of question objects, success value and the toal number of questions.
+- As defined in the pagination, only 10 questions are returned.
+
+##### Example Response
+```JSON
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "questions": [
+        {
+            "answer": "Tom Cruise",
+            "category": 5,
+            "difficulty": 4,
+            "id": 4,
+            "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        },
+        {
+            "answer": "Maya Angelou",
+            "category": 4,
+            "difficulty": 2,
+            "id": 5,
+            "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+        },
+        {
+            "answer": "Edward Scissorhands",
+            "category": 5,
+            "difficulty": 3,
+            "id": 6,
+            "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+        },
+    ],
+    "success": true,
+    "total_questions": 3
+}
+```
 
 
 
