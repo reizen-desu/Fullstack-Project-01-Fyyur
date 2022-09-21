@@ -155,6 +155,7 @@ def create_app(test_config=None):
     @app.route('/categories/<int:category_id>/questions')
     def get_questions_by_category(category_id):
 
+        try:
         category = Category.query.get(category_id)
         selection = Question.query.order_by(Question.id).filter(
             Question.category == category_id).all()
@@ -167,6 +168,9 @@ def create_app(test_config=None):
             'current_category': category_id
 
         })
+
+        except:
+            abort(404)
 
     @app.route('/quizzes', methods=['POST'])
     def get_questions_for_quiz():
