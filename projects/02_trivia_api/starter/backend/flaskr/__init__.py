@@ -149,25 +149,25 @@ def create_app(test_config=None):
                 'total_questions': len(search_results),
             })
         else:
-        abort(404)
+            abort(404)
 
     # Get list of questions based on a given category
     @app.route('/categories/<int:category_id>/questions')
     def get_questions_by_category(category_id):
 
         try:
-        category = Category.query.get(category_id)
-        selection = Question.query.order_by(Question.id).filter(
-            Question.category == category_id).all()
-        current_questions = paginate_questions(request, selection)
+            category = Category.query.get(category_id)
+            selection = Question.query.order_by(Question.id).filter(
+                Question.category == category_id).all()
+            current_questions = paginate_questions(request, selection)
 
-        return jsonify({
-            'success': True,
-            'questions': current_questions,
-            'total_questions': len(current_questions),
-            'current_category': category_id
+            return jsonify({
+                'success': True,
+                'questions': current_questions,
+                'total_questions': len(current_questions),
+                'current_category': category_id
 
-        })
+            })
 
         except:
             abort(404)
