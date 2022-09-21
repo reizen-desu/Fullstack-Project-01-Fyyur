@@ -101,6 +101,30 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Unprocessable resource')
 
+    def test_post_new_question(self):
+        new_question = {'question': 'Unit test working?',
+                        'answer': 'Yes', 'difficulty': 1, 'category': 1}
+
+        res = self.client().post('/questions', json=new_question)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+
+    def test_422_post_new_question(self):
+        # missing category and difficulty in question body
+        new_question = {
+            'question': 'Unit test working?',
+            'answer': 'Yes',
+        }
+
+        res = self.client().post('/questions', json=new_question)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data["message"], "Unprocessable resource")
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
