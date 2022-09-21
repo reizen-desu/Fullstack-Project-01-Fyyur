@@ -135,6 +135,7 @@ def create_app(test_config=None):
     # Returns a list of questions based in the search term
     @app.route('/questions/search', methods=['POST'])
     def search_questions():
+
         body = request.get_json()
         search_term = body.get('searchTerm', None)
 
@@ -147,6 +148,7 @@ def create_app(test_config=None):
                 'questions': [question.format() for question in search_results],
                 'total_questions': len(search_results),
             })
+        else:
         abort(404)
 
     # Get list of questions based on a given category
