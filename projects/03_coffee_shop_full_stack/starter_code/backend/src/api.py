@@ -117,6 +117,34 @@ def drinks(payload):
 '''
 
 
+@app.route('/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
+def update_drink(payload, drink_id):
+    body = request.get_json()
+
+    try:
+        drink = Drink.query.filter(Drink.id == drink_id).one_or_none()
+
+        if drink is None:
+            abort(404)
+
+        if 'title' in body:
+            drink.title = body.get('title')
+
+        if 'recipe' in body:
+            drink.recipe = json.dumps(body.get('recipe'))
+
+        drink.update()
+
+        return jsonify({
+            'success': True,
+            'drinks': [drink.long()]
+        }), 200
+
+    except:
+        abort(422)
+
+
 '''
 @TODO implement endpoint
     DELETE /drinks/<id>
