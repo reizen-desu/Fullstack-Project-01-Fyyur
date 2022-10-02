@@ -78,6 +78,32 @@ def get_drink_detail(payload):
 '''
 
 
+@app.route('/drinks', methods=['POST'])
+@requires_auth('post:drinks')
+def drinks(payload):
+    body = request.get_json()
+
+    new_title = body.get('title', None)
+    new_recipe = body.get('recipe', None)
+
+    try:
+        drink = Drink(title=new_title, recipe=json.dumps(new_recipe))
+        drink.insert()
+
+        return jsonify({
+            'success': True,
+            'drinks': [drink.long()]
+        }), 200
+
+    except:
+        abort(422)
+
+    return jsonify({
+        'success': True,
+        'drinks': [drink.long()]
+    }), 200
+
+
 '''
 @TODO implement endpoint
     PATCH /drinks/<id>
