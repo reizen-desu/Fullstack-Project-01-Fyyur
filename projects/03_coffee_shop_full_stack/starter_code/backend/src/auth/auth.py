@@ -83,7 +83,15 @@ def get_token_auth_header():
 
 
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    if 'permissions' not in payload:
+        abort(400)
+
+    if permission not in payload['permissions']:
+        raise AuthError({
+            'code': 'invalid_permission',
+            'description': 'This user does not have permission to perform this action.',
+        }, 401)
+    return True
 
 
 '''
