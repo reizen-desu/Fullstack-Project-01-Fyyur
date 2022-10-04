@@ -35,20 +35,20 @@ def get_drinks():
 
     drinks = Drink.query.all()
 
-    return jsonify({
-        'success': True,
-        'drinks': [drink.short() for drink in drinks]
-    }), 200
+    try:
+        if len(drinks) == 0:
+            abort(404)
 
+        return jsonify({
+            'success': True,
+            'drinks': [drink.short() for drink in drinks]
+        }), 200
 
-'''
-@TODO implement endpoint
-    GET /drinks-detail
-        it should require the 'get:drinks-detail' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
-        or appropriate status code indicating reason for failure
-'''
+    except:
+        return jsonify({
+            "message": "No drinks found",
+            "error": 404
+        }), 404
 
 
 @app.route('/drinks-detail')
